@@ -1,0 +1,42 @@
+{
+	"name": "n8n-nodes-boostspace",
+	"version": "0.1.0",
+	"description": "n8n community node for Boost.space - manage records, spaces, custom modules, and fields",
+	"license": "MIT",
+	"keywords": [
+		"n8n-community-node-package",
+		"boostspace",
+		"boost.space"
+	],
+	"scripts": {
+		"build": "tsc && gulp build:icons",
+		"build:watch": "tsc --watch",
+		"dev": "npm run build && N8N_LOG_LEVEL=debug n8n start",
+		"lint": "eslint nodes credentials --ext .ts",
+		"lint:fix": "eslint nodes credentials --ext .ts --fix",
+		"prepublishOnly": "npm run build"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/BoostspaceApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Boostspace/Boostspace.node.js",
+			"dist/nodes/Boostspace/BoostspaceTrigger.node.js"
+		]
+	},
+	"devDependencies": {
+		"@typescript-eslint/parser": "^7.0.0",
+		"eslint": "^8.56.0",
+		"gulp": "^4.0.2",
+		"n8n-workflow": "*",
+		"typescript": "~5.4.0"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}

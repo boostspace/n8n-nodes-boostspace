@@ -1,0 +1,494 @@
+{
+  "name": "Boost.space - Test All 24 Operations + Trigger",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 400]
+    },
+
+    {
+      "parameters": {
+        "resource": "customModule",
+        "operation": "create",
+        "name": "Test Module n8n",
+        "additionalFields": {
+          "color": "#6C63FF",
+          "iconName": "cube",
+          "iconPrefix": "fas"
+        }
+      },
+      "id": "op-01",
+      "name": "01. Create Custom Module",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [300, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Creaza un modul custom de test. ID-ul returnat este folosit in toate nodurile urmatoare."
+    },
+    {
+      "parameters": {
+        "resource": "customModule",
+        "operation": "get",
+        "customModuleId": "={{ $json.id }}"
+      },
+      "id": "op-02",
+      "name": "02. Get Custom Module",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [600, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Citeste modulul creat. Verifica ca numele este 'Test Module n8n'."
+    },
+    {
+      "parameters": {
+        "resource": "customModule",
+        "operation": "update",
+        "customModuleId": "={{ $json.id }}",
+        "updateFields": {
+          "name": "Test Module n8n Updated"
+        }
+      },
+      "id": "op-03",
+      "name": "03. Update Custom Module",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [900, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Actualizeaza numele modulului. Verifica ca se schimba in 'Test Module n8n Updated'."
+    },
+
+    {
+      "parameters": {
+        "resource": "space",
+        "operation": "create",
+        "customModuleId": "={{ $json.id }}",
+        "name": "Test Space n8n"
+      },
+      "id": "op-04",
+      "name": "04. Create Space",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1200, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Creaza un space in modulul de test. Foloseste customModuleId din Update Custom Module."
+    },
+    {
+      "parameters": {
+        "resource": "space",
+        "operation": "get",
+        "spaceId": "={{ $json.id }}"
+      },
+      "id": "op-05",
+      "name": "05. Get Space",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1500, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Citeste space-ul creat. Verifica ca numele este 'Test Space n8n'."
+    },
+    {
+      "parameters": {
+        "resource": "space",
+        "operation": "update",
+        "spaceId": "={{ $json.id }}",
+        "updateFields": {
+          "name": "Test Space n8n Updated"
+        }
+      },
+      "id": "op-06",
+      "name": "06. Update Space",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1800, 0],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Actualizeaza numele space-ului in 'Test Space n8n Updated'."
+    },
+
+    {
+      "parameters": {
+        "resource": "field",
+        "operation": "create",
+        "name": "test_field_n8n",
+        "inputType": "text",
+        "elementGroupId": "",
+        "additionalFields": {
+          "description": "Test field created by n8n workflow"
+        }
+      },
+      "id": "op-07",
+      "name": "07. Create Field",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [300, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "ATENTIE: Selecteaza 'Element Group' din dropdown inainte de executie! Creaza un camp custom de tip text."
+    },
+    {
+      "parameters": {
+        "resource": "field",
+        "operation": "get",
+        "customFieldId": "={{ $json.id }}"
+      },
+      "id": "op-08",
+      "name": "08. Get Field",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [600, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Citeste campul custom creat prin ID."
+    },
+    {
+      "parameters": {
+        "resource": "field",
+        "operation": "update",
+        "customFieldInputId": "={{ $json.id }}",
+        "elementGroupId": "",
+        "updateFields": {
+          "name": "test_field_n8n_updated",
+          "description": "Updated test field by n8n"
+        }
+      },
+      "id": "op-09",
+      "name": "09. Update Field",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "ATENTIE: Selecteaza 'Element Group' din dropdown inainte de executie! Actualizeaza numele si descrierea campului custom."
+    },
+
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "create",
+        "customModuleId": "={{ $('01. Create Custom Module').item.json.id }}",
+        "spaceId": "={{ $('04. Create Space').item.json.id }}",
+        "statusSystemId": "",
+        "customFieldsValues": {},
+        "labels": []
+      },
+      "id": "op-10",
+      "name": "10. Create Record",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1200, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "ATENTIE: Selecteaza 'Status System' din dropdown inainte de executie! Creaza un record in space-ul de test."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "get",
+        "customModuleItemId": "={{ $json.id }}"
+      },
+      "id": "op-11",
+      "name": "11. Get Record",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1500, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Citeste record-ul creat. Verifica ca custom fields sunt flatten-uite pe obiect."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "update",
+        "customModuleId": "={{ $('01. Create Custom Module').item.json.id }}",
+        "customModuleItemId": "={{ $json.id }}",
+        "customFieldsValues": {},
+        "additionalFields": {}
+      },
+      "id": "op-12",
+      "name": "12. Update Record",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1800, 300],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Actualizeaza record-ul. Adauga custom fields sau additionalFields dupa nevoie."
+    },
+
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "sync",
+        "remoteId": "test-sync-n8n-001",
+        "remoteApplication": "n8n-test",
+        "spaceId": "={{ $('04. Create Space').item.json.id }}",
+        "customFieldsValues": {},
+        "additionalFields": {}
+      },
+      "id": "op-13",
+      "name": "13. Sync Record",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [300, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Upsert: creeaza sau actualizeaza record-ul cu remote ID 'test-sync-n8n-001' din aplicatia 'n8n-test'."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "createBulk",
+        "customModuleId": "={{ $('01. Create Custom Module').item.json.id }}",
+        "spaceId": "={{ $('04. Create Space').item.json.id }}",
+        "records": "[{\"statusSystemId\": 1}, {\"statusSystemId\": 1}]"
+      },
+      "id": "op-14",
+      "name": "14. Create Bulk Records",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [600, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "ATENTIE: Actualizeaza statusSystemId in JSON cu un ID valid! Creeaza 2 recorduri in bulk."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "delete",
+        "customModuleItemId": "={{ $('11. Get Record').item.json.id }}"
+      },
+      "id": "op-15",
+      "name": "15. Delete Record",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [900, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Sterge record-ul creat la pasul 10."
+    },
+    {
+      "parameters": {
+        "resource": "field",
+        "operation": "delete",
+        "customFieldId": "={{ $('08. Get Field').item.json.id }}"
+      },
+      "id": "op-16",
+      "name": "16. Delete Field",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1200, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Sterge campul custom creat la pasul 07."
+    },
+    {
+      "parameters": {
+        "resource": "space",
+        "operation": "delete",
+        "spaceId": "={{ $('04. Create Space').item.json.id }}"
+      },
+      "id": "op-17",
+      "name": "17. Delete Space",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1500, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Sterge space-ul creat la pasul 04."
+    },
+    {
+      "parameters": {
+        "resource": "customModule",
+        "operation": "delete",
+        "customModuleId": "={{ $('01. Create Custom Module').item.json.id }}"
+      },
+      "id": "op-18",
+      "name": "18. Delete Custom Module",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1800, 600],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Sterge modulul custom creat la pasul 01. Curatenie finala."
+    },
+
+    {
+      "parameters": {
+        "resource": "customModule",
+        "operation": "getMany",
+        "filters": {}
+      },
+      "id": "op-19",
+      "name": "19. List Custom Modules",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [300, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Listeaza toate modulele custom. Testeaza conexiunea si credentialele."
+    },
+    {
+      "parameters": {
+        "resource": "space",
+        "operation": "getMany"
+      },
+      "id": "op-20",
+      "name": "20. List Spaces",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [600, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Listeaza toate space-urile."
+    },
+    {
+      "parameters": {
+        "resource": "field",
+        "operation": "getMany",
+        "spaceId": ""
+      },
+      "id": "op-21",
+      "name": "21. List Fields",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [900, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "ATENTIE: Selecteaza un Space din dropdown inainte de executie! Listeaza campurile custom ale space-ului."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "getMany",
+        "filters": {}
+      },
+      "id": "op-22",
+      "name": "22. List Records",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1200, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Listeaza toate record-urile. Verifica ca custom fields sunt flatten-uite."
+    },
+    {
+      "parameters": {
+        "resource": "record",
+        "operation": "getByRemoteId",
+        "remoteId": "test-remote-001",
+        "remoteApplication": "n8n-test"
+      },
+      "id": "op-23",
+      "name": "23. Get Record By Remote ID",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1500, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Cauta un record dupa remote ID si aplicatie. Modifica remoteId si remoteApplication cu valori reale."
+    },
+    {
+      "parameters": {
+        "resource": "apiCall",
+        "operation": "make",
+        "method": "GET",
+        "url": "user/logged"
+      },
+      "id": "op-24",
+      "name": "24. Make API Call",
+      "type": "n8n-nodes-boostspace.boostspace",
+      "typeVersion": 1,
+      "position": [1800, 900],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "notes": "Apel API raw catre /api/user/logged. Verifica ca returneaza datele utilizatorului autentificat."
+    },
+
+    {
+      "parameters": {
+        "eventType": "recordCreated"
+      },
+      "id": "trigger",
+      "name": "25. Trigger: Record Created",
+      "type": "n8n-nodes-boostspace.boostspaceTrigger",
+      "typeVersion": 1,
+      "position": [0, 1200],
+      "credentials": { "boostspaceApi": { "id": "1", "name": "Boost.space API" } },
+      "webhookId": "test-webhook-1",
+      "notes": "Trigger: asculta evenimente de creare record. Pe server public merge automat. Local necesita tunel (ngrok)."
+    },
+    {
+      "parameters": {},
+      "id": "trigger-output",
+      "name": "26. Trigger Output",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [300, 1200],
+      "notes": "Output-ul trigger-ului. Verifica: x-trigger-event header, custom fields flatten-uite."
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          { "node": "01. Create Custom Module", "type": "main", "index": 0 },
+          { "node": "19. List Custom Modules", "type": "main", "index": 0 },
+          { "node": "20. List Spaces", "type": "main", "index": 0 },
+          { "node": "21. List Fields", "type": "main", "index": 0 },
+          { "node": "22. List Records", "type": "main", "index": 0 },
+          { "node": "23. Get Record By Remote ID", "type": "main", "index": 0 },
+          { "node": "24. Make API Call", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+
+    "01. Create Custom Module": {
+      "main": [[ { "node": "02. Get Custom Module", "type": "main", "index": 0 } ]]
+    },
+    "02. Get Custom Module": {
+      "main": [[ { "node": "03. Update Custom Module", "type": "main", "index": 0 } ]]
+    },
+    "03. Update Custom Module": {
+      "main": [[ { "node": "04. Create Space", "type": "main", "index": 0 } ]]
+    },
+    "04. Create Space": {
+      "main": [[ { "node": "05. Get Space", "type": "main", "index": 0 } ]]
+    },
+    "05. Get Space": {
+      "main": [[ { "node": "06. Update Space", "type": "main", "index": 0 } ]]
+    },
+    "06. Update Space": {
+      "main": [[ { "node": "07. Create Field", "type": "main", "index": 0 } ]]
+    },
+
+    "07. Create Field": {
+      "main": [[ { "node": "08. Get Field", "type": "main", "index": 0 } ]]
+    },
+    "08. Get Field": {
+      "main": [[ { "node": "09. Update Field", "type": "main", "index": 0 } ]]
+    },
+    "09. Update Field": {
+      "main": [[ { "node": "10. Create Record", "type": "main", "index": 0 } ]]
+    },
+
+    "10. Create Record": {
+      "main": [[ { "node": "11. Get Record", "type": "main", "index": 0 } ]]
+    },
+    "11. Get Record": {
+      "main": [[ { "node": "12. Update Record", "type": "main", "index": 0 } ]]
+    },
+    "12. Update Record": {
+      "main": [[ { "node": "13. Sync Record", "type": "main", "index": 0 } ]]
+    },
+
+    "13. Sync Record": {
+      "main": [[ { "node": "14. Create Bulk Records", "type": "main", "index": 0 } ]]
+    },
+    "14. Create Bulk Records": {
+      "main": [[ { "node": "15. Delete Record", "type": "main", "index": 0 } ]]
+    },
+    "15. Delete Record": {
+      "main": [[ { "node": "16. Delete Field", "type": "main", "index": 0 } ]]
+    },
+    "16. Delete Field": {
+      "main": [[ { "node": "17. Delete Space", "type": "main", "index": 0 } ]]
+    },
+    "17. Delete Space": {
+      "main": [[ { "node": "18. Delete Custom Module", "type": "main", "index": 0 } ]]
+    },
+
+    "25. Trigger: Record Created": {
+      "main": [[ { "node": "26. Trigger Output", "type": "main", "index": 0 } ]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

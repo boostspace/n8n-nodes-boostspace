@@ -1,0 +1,15 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_LOG_LEVEL=debug
+      - GENERIC_TIMEZONE=Europe/Bucharest
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./dist:/home/node/.n8n/nodes/node_modules/n8n-nodes-boostspace/dist
+      - ./package.json:/home/node/.n8n/nodes/node_modules/n8n-nodes-boostspace/package.json
+
+volumes:
+  n8n_data:
