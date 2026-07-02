@@ -1,11 +1,12 @@
 {
 	"name": "n8n-nodes-boostspace",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "n8n community node for Boost.space - manage records, spaces, custom modules, and fields",
 	"license": "MIT",
 	"homepage": "https://boost.space",
 	"author": {
 		"name": "Boost.space",
+		"email": "developers@boost.space",
 		"url": "https://boost.space"
 	},
 	"repository": {
