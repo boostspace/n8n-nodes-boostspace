@@ -34,7 +34,6 @@ export async function boostspaceApiRequest(
 		url: `${baseUrl}${endpoint}`,
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8',
-			'Authorization': `Bearer ${credentials.apiToken}`,
 		},
 		qs,
 	};
@@ -53,7 +52,11 @@ export async function boostspaceApiRequest(
 	}
 
 	try {
-		const response = await this.helpers.httpRequest(options);
+		const response = await this.helpers.httpRequestWithAuthentication.call(
+			this,
+			'boostspaceApi',
+			options,
+		);
 		// Response may be string or already parsed object
 		if (typeof response === 'string') {
 			try {
